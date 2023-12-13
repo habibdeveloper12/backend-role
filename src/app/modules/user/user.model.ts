@@ -1,29 +1,29 @@
 /* eslint-disable @typescript-eslint/no-this-alias */
 import { Schema, model } from 'mongoose';
 import generateUniqueId from '../../utils/generateUniqueId';
-import { CalculatorModel, ICalculator } from './calculator.interface';
+import { IUser, UserModel } from './user.interface';
 
-const CalculatorSchema = new Schema<ICalculator, CalculatorModel>(
+const UserSchema = new Schema<IUser, UserModel>(
   {
     id: {
       type: String,
       unique: true,
     },
-    income: {
-      type: Number,
-    },
-    expenses: {
-      type: Number,
+    name: {
+      type: String,
       required: true,
     },
-    debts: {
-      type: Number,
+    email: {
+      type: String,
+      required: true,
     },
-    assets: {
-      type: Number,
+    role: {
+      type: String,
+      default: 'user',
     },
-    total: {
-      type: Number,
+    password: {
+      type: String,
+      required: true,
     },
   },
   {
@@ -33,14 +33,11 @@ const CalculatorSchema = new Schema<ICalculator, CalculatorModel>(
     },
   }
 );
-CalculatorSchema.pre('save', function (next) {
+UserSchema.pre('save', function (next) {
   // Ensure that this.id is set to a unique value or remove this block if not needed
   if (!this.id) {
     this.id = generateUniqueId();
   }
   next();
 });
-export const Calculator = model<ICalculator, CalculatorModel>(
-  'Calculator',
-  CalculatorSchema
-);
+export const User = model<IUser, UserModel>('user', UserSchema);

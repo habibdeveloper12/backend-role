@@ -3,36 +3,36 @@ import { RequestHandler } from 'express-serve-static-core';
 import httpStatus from 'http-status';
 import catchAsync from '../../../shared/catchAsync';
 import sendResponse from '../../../shared/sendResponse';
-import { calculatorService } from './calculator.service';
+import { sectorService } from './sector.service';
 
-const createCalculator: RequestHandler = catchAsync(
+const createSector: RequestHandler = catchAsync(
   async (req: Request, res: Response) => {
-    console.log(req.body);
-    const result = await calculatorService.createCalculator(req.body);
+    const body = req.body;
+    const result = await sectorService.createSector(body);
     console.log(result);
     sendResponse<any>(res, {
       statusCode: httpStatus.OK,
       success: true,
-      message: 'Here is calculation!',
+      message: 'Here is Sectors!',
       data: result,
     });
   }
 );
-const getCalculator: RequestHandler = catchAsync(
+const getSector: RequestHandler = catchAsync(
   async (req: Request, res: Response) => {
     console.log(req.body);
-    const result = await calculatorService.getCalculator();
+    const result = await sectorService.getSector();
     console.log(result);
     sendResponse<any>(res, {
       statusCode: httpStatus.OK,
       success: true,
-      message: 'Here is calculation!',
+      message: 'Here is Sector!',
       data: result,
     });
   }
 );
 
-export const calculatorController = {
-  createCalculator,
-  getCalculator,
+export const sectorController = {
+  createSector,
+  getSector,
 };

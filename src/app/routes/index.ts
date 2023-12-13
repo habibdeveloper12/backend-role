@@ -1,12 +1,17 @@
 import express from 'express';
-import { calculatorRoutes } from '../modules/calculator/calculator.route';
+import { sectorRoutes } from '../modules/sector/sector.route';
+import { userRoutes } from '../modules/user/user.route';
 
 const router = express.Router();
 
 const moduleRoutes = [
   {
-    path: '/',
-    route: calculatorRoutes,
+    path: '/user',
+    route: userRoutes,
+  },
+  {
+    path: '/sector',
+    route: sectorRoutes,
   },
 ];
 
